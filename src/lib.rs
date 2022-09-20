@@ -7,8 +7,8 @@ use filters::FilterType;
 
 pub fn validate_filter_type(
     filter: &str,
-    filter_strings: &Vec<&str>,
-    filter_types: &Vec<FilterType>,
+    filter_strings: &[&str],
+    filter_types: &[FilterType],
 ) -> Result<FilterType, &'static str> {
     let search_result = filter_strings.iter().enumerate().find(|f| &filter == f.1);
     match search_result {

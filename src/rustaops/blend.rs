@@ -39,7 +39,7 @@ pub fn blend_color_burn(x1: u8, x2: u8) -> u8 {
     } else {
         let x1 = x1 as u16;
         let x2 = x2 as u16;
-        let max = 255 as u16;
+        let max = 255_u16;
         let rhs = max.wrapping_sub(((max - x1) << 8) / x2);
         if rhs > 0 {
             rhs as u8
@@ -84,8 +84,8 @@ pub fn blend_color_dodge(x1: u8, x2: u8) -> u8 {
 
 #[allow(dead_code)]
 pub fn blend_add(x1: u8, x2: u8) -> u8 {
-    let rhs = x1.wrapping_add(x2);
-    rhs
+    
+    x1.wrapping_add(x2)
 }
 
 #[allow(dead_code)]
@@ -151,7 +151,7 @@ pub fn blend_pin_light(x1: u8, x2: u8) -> u8 {
 pub fn blend_difference(x1: u8, x2: u8) -> u8 {
     let x1 = x1 as i16;
     let x2 = x2 as i16;
-    (x1 - x2).abs() as u8
+    (x1 - x2).unsigned_abs() as u8
 }
 
 #[allow(dead_code)]

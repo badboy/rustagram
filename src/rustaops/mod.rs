@@ -51,8 +51,8 @@ where
         let mut b = channels[2] as u16;
         let gray = (r + g + b) / 3;
 
-        r = r + (depth * 2);
-        g = g + depth;
+        r += depth * 2;
+        g += depth;
         b = gray;
 
         if r > 255 {
@@ -338,7 +338,7 @@ fn rgb_to_hls(rgba: &[u8; 4]) -> [f32; 3] {
         hue += 1.0;
     }
 
-    return [hue, lumination, saturation];
+    [hue, lumination, saturation]
 }
 
 pub fn saturate<I>(image: &I, value: f32) -> ImageBuffer<Rgba<u8>, Vec<u8>>
@@ -397,13 +397,13 @@ fn hue_to_rgb(m1: f32, m2: f32, hue: f32) -> f32 {
     }
 
     if (6.0 * hue) < 1.0 {
-        return m1 + (m2 - m1) * hue * 6.0;
+        m1 + (m2 - m1) * hue * 6.0
     } else if (2.0 * hue) < 1.0 {
-        return m2;
+        m2
     } else if (3.0 * hue) < 2.0 {
-        return m1 + (m2 - m1) * ((2.0 / 3.0) - hue) * 6.0;
+        m1 + (m2 - m1) * ((2.0 / 3.0) - hue) * 6.0
     } else {
-        return m1;
+        m1
     }
 }
 
