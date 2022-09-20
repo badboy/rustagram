@@ -1,8 +1,8 @@
 extern crate image;
 
-use image::RgbaImage;
-use image::imageops;
 use image::buffer::ConvertBuffer;
+use image::imageops;
+use image::RgbaImage;
 use rustaops;
 
 #[derive(Clone)]
@@ -29,7 +29,7 @@ pub enum FilterType {
     Stinson,
     Toaster,
     Valencia,
-    Walden
+    Walden,
 }
 
 pub trait RustagramFilter {
@@ -61,7 +61,7 @@ impl RustagramFilter for RgbaImage {
             FilterType::Stinson => apply_stinson(&self),
             FilterType::Toaster => apply_toaster(&self),
             FilterType::Valencia => apply_valencia(&self),
-            FilterType::Walden => apply_walden(&self)
+            FilterType::Walden => apply_walden(&self),
         }
     }
 }
@@ -71,7 +71,7 @@ pub fn apply_1977(img: &RgbaImage) -> RgbaImage {
     let contrasted = imageops::contrast(img, 10.0);
     let brightened = rustaops::brighten_by_percent(&contrasted, 10.0);
     let saturated = rustaops::saturate(&brightened, 30.0);
-    let foreground = rustaops::fill_with_channels(width, height, &[243,106,188,76]);
+    let foreground = rustaops::fill_with_channels(width, height, &[243, 106, 188, 76]);
     let out = rustaops::blend_screen(&saturated, &foreground);
     out
 }
@@ -89,7 +89,7 @@ pub fn apply_brannan(img: &RgbaImage) -> RgbaImage {
     let (width, height) = img.dimensions();
     let with_sepia = rustaops::sepia(img, 20.0);
     let contrasted = imageops::contrast(&with_sepia, 20.0);
-    let foreground = rustaops::fill_with_channels(width, height, &[161,44,199,59]);
+    let foreground = rustaops::fill_with_channels(width, height, &[161, 44, 199, 59]);
     let out = rustaops::blend_lighten(&foreground, &contrasted);
     out
 }
@@ -98,7 +98,7 @@ pub fn apply_brooklyn(img: &RgbaImage) -> RgbaImage {
     let (width, height) = img.dimensions();
     let contrasted = imageops::contrast(img, -10.0);
     let brightened = rustaops::brighten_by_percent(&contrasted, 10.0);
-    let foreground = rustaops::fill_with_channels(width, height, &[168,223,193,150]);
+    let foreground = rustaops::fill_with_channels(width, height, &[168, 223, 193, 150]);
     let background = rustaops::restore_transparency(&brightened);
     let out = rustaops::blend_overlay(&foreground, &background);
     out
@@ -108,7 +108,7 @@ pub fn apply_clarendon(img: &RgbaImage) -> RgbaImage {
     let (width, height) = img.dimensions();
     let contrasted = imageops::contrast(img, 20.0);
     let saturated = rustaops::saturate(&contrasted, 35.0);
-    let foreground = rustaops::fill_with_channels(width, height, &[127,187,227,101]);
+    let foreground = rustaops::fill_with_channels(width, height, &[127, 187, 227, 101]);
     let out = rustaops::blend_overlay(&foreground, &saturated);
     out
 }
@@ -117,7 +117,7 @@ pub fn apply_earlybird(img: &RgbaImage) -> RgbaImage {
     let (width, height) = img.dimensions();
     let contrasted = imageops::contrast(img, -10.0);
     let with_sepia = rustaops::sepia(&contrasted, 5.0);
-    let foreground = rustaops::fill_with_channels(width, height, &[208,186,142,150]);
+    let foreground = rustaops::fill_with_channels(width, height, &[208, 186, 142, 150]);
     let out = rustaops::blend_overlay(&with_sepia, &foreground);
     let out = rustaops::restore_transparency(&out);
     out
@@ -188,7 +188,7 @@ pub fn apply_mayfair(img: &RgbaImage) -> RgbaImage {
     let (width, height) = img.dimensions();
     let contrasted = imageops::contrast(img, 10.0);
     let saturated = rustaops::saturate(&contrasted, 10.0);
-    let foreground = rustaops::fill_with_channels(width, height, &[255,200,200,153]);
+    let foreground = rustaops::fill_with_channels(width, height, &[255, 200, 200, 153]);
     let out = rustaops::blend_overlay(&foreground, &saturated);
     out
 }
@@ -197,9 +197,9 @@ pub fn apply_moon(img: &RgbaImage) -> RgbaImage {
     let (width, height) = img.dimensions();
     let contrasted = imageops::contrast(img, 10.0);
     let brightened = rustaops::brighten_by_percent(&contrasted, 10.0);
-    let foreground = rustaops::fill_with_channels(width, height, &[160,160,160,255]);
+    let foreground = rustaops::fill_with_channels(width, height, &[160, 160, 160, 255]);
     let soft_light = rustaops::blend_soft_light(&foreground, &brightened);
-    let foreground = rustaops::fill_with_channels(width, height, &[56,56,56,255]);
+    let foreground = rustaops::fill_with_channels(width, height, &[56, 56, 56, 255]);
     let lighten = rustaops::blend_lighten(&foreground, &soft_light);
     let out = imageops::grayscale(&lighten);
     ConvertBuffer::convert(&out)
@@ -211,9 +211,9 @@ pub fn apply_nashville(img: &RgbaImage) -> RgbaImage {
     let contrasted = imageops::contrast(&with_sepia, 20.0);
     let brightened = rustaops::brighten_by_percent(&contrasted, 5.0);
     let saturated = rustaops::saturate(&brightened, 20.0);
-    let foreground = rustaops::fill_with_channels(width, height, &[247,176,153,243]);
+    let foreground = rustaops::fill_with_channels(width, height, &[247, 176, 153, 243]);
     let darkened = rustaops::blend_darken(&foreground, &saturated);
-    let foreground = rustaops::fill_with_channels(width, height, &[0,70,150,230]);
+    let foreground = rustaops::fill_with_channels(width, height, &[0, 70, 150, 230]);
     let out = rustaops::blend_lighten(&foreground, &darkened);
     out
 }
