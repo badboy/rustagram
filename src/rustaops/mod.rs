@@ -1,5 +1,3 @@
-extern crate image;
-
 use image::{GenericImage, ImageBuffer, Pixel, Rgba};
 
 mod blend;

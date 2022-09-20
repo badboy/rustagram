@@ -1,6 +1,3 @@
-extern crate image;
-extern crate rustagram;
-
 use rustagram::filters::FilterType::*;
 use rustagram::filters::RustagramFilter;
 

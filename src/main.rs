@@ -1,8 +1,4 @@
-extern crate image;
-extern crate rustagram;
-#[macro_use]
-extern crate clap;
-
+use clap::clap_app;
 use rustagram::filters::FilterType::*;
 use rustagram::filters::RustagramFilter;
 use std::process;
