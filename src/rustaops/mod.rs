@@ -1,7 +1,6 @@
 extern crate image;
 
 use image::{GenericImage, ImageBuffer, Pixel, Rgba};
-use image::math::utils::clamp;
 
 mod blend;
 
@@ -19,7 +18,7 @@ pub fn brighten_by_percent<I, P>(image: &I, value: f32) -> ImageBuffer<P, Vec<u8
         for x in 0..width {
             let e = image.get_pixel(x, y).map_with_alpha(|b| {
                 let c: f32 = b as f32;
-                let d = clamp(c * percent, 0.0, max);
+                let d = (c*percent).clamp(0.0, max);
 
                 d as u8
             }, |alpha| alpha);
@@ -39,7 +38,7 @@ pub fn sepia<I>(image: &I, intensity: f32) -> ImageBuffer<Rgba<u8>, Vec<u8>>
 
     let percent = intensity / 100.0;
     for (x, y, pixel) in out.enumerate_pixels_mut() {
-        let channels = image.get_pixel(x, y).data;
+        let channels = image.get_pixel(x, y).0;
         let mut r = channels[0] as u16;
         let mut g = channels[1] as u16;
         let mut b = channels[2] as u16;
@@ -95,7 +94,7 @@ pub fn restore_transparency<I>(image: &I) -> ImageBuffer<Rgba<u8>, Vec<u8>>
     let mut out = ImageBuffer::new(width, height);
     for y in 0..height {
         for x in 0..width {
-            let mut e = image.get_pixel(x, y).data;
+            let mut e = image.get_pixel(x, y).0;
             e[3] = 255;
 
             out.put_pixel(x, y, *Rgba::from_slice(&e));
@@ -111,8 +110,8 @@ pub fn over<I>(foreground: &I, background: &I) -> ImageBuffer<Rgba<u8>, Vec<u8>>
     let (width, height) = foreground.dimensions();
     let mut out = ImageBuffer::new(width, height);
     for (x, y, pixel) in out.enumerate_pixels_mut() {
-        let fg_data = foreground.get_pixel(x, y).data;
-        let bg_data = background.get_pixel(x, y).data;
+        let fg_data = foreground.get_pixel(x, y).0;
+        let bg_data = background.get_pixel(x, y).0;
         let final_alpha = blend::compute_final_alpha(&fg_data, &bg_data);
         let mut final_data = [0; 4];
         final_data[3] = final_alpha;
@@ -240,14 +239,14 @@ pub fn blend_exclusion<I>(foreground: &I, background: &I) -> ImageBuffer<Rgba<u8
     process_blend(foreground, background, &blend::blend_exclusion)
 }
 
-fn process_blend<I>(foreground: &I, background: &I, f: &Fn(u8, u8) -> u8) -> ImageBuffer<Rgba<u8>, Vec<u8>>
+fn process_blend<I>(foreground: &I, background: &I, f: &dyn Fn(u8, u8) -> u8) -> ImageBuffer<Rgba<u8>, Vec<u8>>
     where I: GenericImage<Pixel=Rgba<u8>>
 {
     let (width, height) = foreground.dimensions();
     let mut out = ImageBuffer::new(width, height);
     for (x, y, pixel) in out.enumerate_pixels_mut() {
-        let fg_data = foreground.get_pixel(x, y).data;
-        let bg_data = background.get_pixel(x, y).data;
+        let fg_data = foreground.get_pixel(x, y).0;
+        let bg_data = background.get_pixel(x, y).0;
         let final_r = f(fg_data[0], bg_data[0]);
         let final_g = f(fg_data[1], bg_data[1]);
         let final_b = f(fg_data[2], bg_data[2]);
@@ -315,7 +314,7 @@ pub fn saturate<I>(image: &I, value: f32) -> ImageBuffer<Rgba<u8>, Vec<u8>>
 
     let percent = value / 100.0;
     for (x, y, pixel) in out.enumerate_pixels_mut() {
-        let data = image.get_pixel(x, y).data;
+        let data = image.get_pixel(x, y).0;
         let mut hls = rgb_to_hls(&data);
         hls[2] = saturate_value(hls[2], percent);
         let rgb = hls_to_rgb(&hls, data[3]);

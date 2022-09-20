@@ -42,6 +42,6 @@ fn main() {
     };
 
     let img = image::open(input).unwrap();
-    let out = img.to_rgba().apply_filter(filter_type);
+    let out = img.to_rgba8().apply_filter(filter_type);
     out.save(output).unwrap();
 }

@@ -1,7 +1,8 @@
 extern crate image;
 
-use image::{RgbaImage, ConvertBuffer};
+use image::RgbaImage;
 use image::imageops;
+use image::buffer::ConvertBuffer;
 use rustaops;
 
 #[derive(Clone)]
