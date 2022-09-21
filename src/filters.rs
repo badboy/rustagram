@@ -1,9 +1,10 @@
+use crate::rustaops;
 use image::buffer::ConvertBuffer;
 use image::imageops;
 use image::RgbaImage;
-use crate::rustaops;
 
-#[derive(Clone)]
+/// All available image filters.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FilterType {
     NineTeenSeventySeven,
     Aden,
@@ -30,7 +31,9 @@ pub enum FilterType {
     Walden,
 }
 
+/// Apply a given filter type.
 pub trait RustagramFilter {
+    /// Apply the given filter to an image.
     fn apply_filter(&self, ft: FilterType) -> Self;
 }
 

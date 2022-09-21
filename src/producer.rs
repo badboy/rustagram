@@ -1,5 +1,5 @@
-use rustagram::filters::FilterType::*;
-use rustagram::filters::RustagramFilter;
+use rustagram::FilterType::*;
+use rustagram::RustagramFilter;
 
 fn main() {
     let img = image::open("test.jpg").unwrap();
