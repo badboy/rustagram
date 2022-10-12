@@ -84,7 +84,6 @@ pub fn blend_color_dodge(x1: u8, x2: u8) -> u8 {
 
 #[allow(dead_code)]
 pub fn blend_add(x1: u8, x2: u8) -> u8 {
-    
     x1.wrapping_add(x2)
 }
 

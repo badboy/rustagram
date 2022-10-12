@@ -13,7 +13,7 @@
 //! ```
 
 use std::fmt;
-use std::{str::FromStr, fmt::Display};
+use std::{fmt::Display, str::FromStr};
 
 /// Re-export of the `image` crate.
 pub use image;

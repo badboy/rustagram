@@ -455,8 +455,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustagram"
-version = "0.1.0"
+name = "rustagram2"
+version = "2.0.0"
 dependencies = [
  "clap",
  "image",

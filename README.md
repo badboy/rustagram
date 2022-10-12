@@ -1,7 +1,6 @@
 # Rustagram
-[![Build Status](https://travis-ci.org/ha-shine/rustagram.svg?branch=master)](https://travis-ci.org/ha-shine/rustagram)
 
-Rustagram is a toy implementation of instgram-ish filters in Rust for fun and profit. 
+Rustagram is a toy implementation of instgram-ish filters in Rust for fun and profit.
 Well no profit, but fun nonetheless.
 
 ## Usage

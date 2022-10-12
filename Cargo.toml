@@ -1,11 +1,15 @@
 [package]
-name = "rustagram"
-version = "0.1.0"
-authors = ["Htet Aung Shine <h@shine.rocks>"]
+name = "rustagram2"
+version = "2.0.0"
+authors = ["Htet Aung Shine <h@shine.rocks>", "Jan-Erik Rediger <janerik@fnordig.de>"]
 description = "Apply instagram filters to your photos."
 exclude = ["output"]
 license = "Unlicense/MIT"
 edition = "2021"
+default-run = "rustagram"
+
+[lib]
+name = "rustagram"
 
 [dependencies]
 image = "0.24.3"

@@ -4,6 +4,8 @@ use image::imageops;
 use image::RgbaImage;
 
 /// All available image filters.
+///
+/// Use [`FromStr`](std::str::FromStr) to parse it from a string.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FilterType {
     NineTeenSeventySeven,
