@@ -1,6 +1,8 @@
 use crate::rustaops;
 use image::buffer::ConvertBuffer;
 use image::imageops;
+use image::DynamicImage;
+use image::DynamicImage::ImageRgba8;
 use image::RgbaImage;
 
 /// All available image filters.
@@ -64,8 +66,18 @@ pub trait RustagramFilter {
     fn apply_filter(&self, ft: FilterType) -> Self;
 }
 
+impl RustagramFilter for DynamicImage {
+    /// Apply a filter to a `DynamicImage`.
+    ///
+    /// This always returns an `DynamicImage::RgbaImage`.
+    fn apply_filter(&self, ft: FilterType) -> DynamicImage {
+        ImageRgba8(self.to_rgba8().apply_filter(ft))
+    }
+}
+
 impl RustagramFilter for RgbaImage {
-    fn apply_filter(&self, ft: FilterType) -> Self {
+    /// Apply a filter to a `RgbaImage`.
+    fn apply_filter(&self, ft: FilterType) -> RgbaImage {
         match ft {
             FilterType::NineTeenSeventySeven => apply_1977(self),
             FilterType::Aden => apply_aden(self),

@@ -81,7 +81,13 @@ mod test {
     #[test]
     fn parses() {
         assert_eq!(FilterType::NineTeenSeventySeven, "1977".parse().unwrap());
-        assert_eq!(FilterType::NineTeenSeventySeven, "NineTeenSeventySeven".parse().unwrap());
-        assert_eq!(FilterType::NineTeenSeventySeven, "nineteenseventyseven".parse().unwrap());
+        assert_eq!(
+            FilterType::NineTeenSeventySeven,
+            "NineTeenSeventySeven".parse().unwrap()
+        );
+        assert_eq!(
+            FilterType::NineTeenSeventySeven,
+            "nineteenseventyseven".parse().unwrap()
+        );
     }
 }
