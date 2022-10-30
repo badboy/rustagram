@@ -37,7 +37,9 @@ impl FromStr for FilterType {
     type Err = InvalidFilterName;
 
     fn from_str(filter: &str) -> Result<Self, Self::Err> {
-        let search_result = AVAILABLE_FILTERS.iter().find(|f| f.0 == filter);
+        let search_result = AVAILABLE_FILTERS
+            .iter()
+            .find(|f| f.0.eq_ignore_ascii_case(filter));
         match search_result {
             Some((_, filter)) => Ok(*filter),
             None => Err(InvalidFilterName),
@@ -47,6 +49,7 @@ impl FromStr for FilterType {
 
 const AVAILABLE_FILTERS: &[(&str, FilterType)] = &[
     ("1977", FilterType::NineTeenSeventySeven),
+    ("nineteenseventyseven", FilterType::NineTeenSeventySeven),
     ("aden", FilterType::Aden),
     ("brannan", FilterType::Brannan),
     ("brooklyn", FilterType::Brooklyn),
@@ -70,3 +73,15 @@ const AVAILABLE_FILTERS: &[(&str, FilterType)] = &[
     ("valencia", FilterType::Valencia),
     ("walden", FilterType::Walden),
 ];
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn parses() {
+        assert_eq!(FilterType::NineTeenSeventySeven, "1977".parse().unwrap());
+        assert_eq!(FilterType::NineTeenSeventySeven, "NineTeenSeventySeven".parse().unwrap());
+        assert_eq!(FilterType::NineTeenSeventySeven, "nineteenseventyseven".parse().unwrap());
+    }
+}

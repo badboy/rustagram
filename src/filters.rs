@@ -5,31 +5,56 @@ use image::RgbaImage;
 
 /// All available image filters.
 ///
+///
 /// Use [`FromStr`](std::str::FromStr) to parse it from a string.
+/// It parses from the (lowercase) names given below.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FilterType {
+    /// The `1977` filter.
     NineTeenSeventySeven,
+    /// The `aden` filter.
     Aden,
+    /// The `brannan` filter.
     Brannan,
+    /// The `brooklyn` filter.
     Brooklyn,
+    /// The `clarendon` filter.
     Clarendon,
+    /// The `earlybird` filter.
     Earlybird,
+    /// The `gingham` filter.
     Gingham,
+    /// The `hudson` filter.
     Hudson,
+    /// The `Inkwell` filter.
     Inkwell,
+    /// The `kelvin` filter.
     Kelvin,
+    /// The `lark` filter.
     Lark,
+    /// The `lofi` filter.
     Lofi,
+    /// The `maven` filter.
     Maven,
+    /// The `mayfair` filter.
     Mayfair,
+    /// The `moon` filter.
     Moon,
+    /// The `nashville` filter.
     Nashville,
+    /// The `reyes` filter.
     Reyes,
+    /// The `rise` filter.
     Rise,
+    /// The `slumber` filter.
     Slumber,
+    /// The `stinson` filter.
     Stinson,
+    /// The `toaster` filter.
     Toaster,
+    /// The `valencia` filter.
     Valencia,
+    /// The `walden` filter.
     Walden,
 }
 
