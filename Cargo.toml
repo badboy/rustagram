@@ -1,6 +1,6 @@
 [package]
 name = "rustagram2"
-version = "2.0.1"
+version = "2.1.0"
 authors = ["Htet Aung Shine <h@shine.rocks>", "Jan-Erik Rediger <janerik@fnordig.de>"]
 description = "Apply instagram filters to your photos."
 exclude = ["output"]
